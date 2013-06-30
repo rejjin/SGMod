@@ -16,7 +16,7 @@ implementation
     if (not is_show_hp) or (players[idx] = nil) then
       exit;
 
-    // if (gametype <> 'TDM') and (gametype <> 'CTF') and (gametype <> 'DOM') then exit;
+    if (gametype <> 'TDM') and (gametype <> 'CTF') and (gametype <> 'DOM') then exit;
 
     for i := 0 to 7 do if players[i]<>nil then
     begin
