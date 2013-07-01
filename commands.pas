@@ -3,7 +3,7 @@ unit commands;
 interface
 
 uses register, defines, utils, sysutils, configuration, console, auto_message,
-  low_ammo_warning, mmap, vote_menu, show_hp, windows, deg_of_messages, logo;
+  low_ammo_warning, mmap, vote_menu, show_hp, windows, deg_of_messages, time, logo;
 
 procedure EVENT_BeginGame;
 procedure EVENT_ResetGame;
@@ -55,11 +55,13 @@ end;
 procedure EVENT_ItemTaken(brickx, bricky, image : byte; dxid : word);
 begin
   AutoMessageHandle(image, dxid);
+  SetAmpl(image, dxid);
 end;
 
 procedure CMD_Register;
 begin
   RegisterConsoleCommand('sg_auto_messages');
+  RegisterConsoleCommand('sg_draw_time');
   RegisterConsoleCommand('sg_low_ammo_table');
   RegisterConsoleCommand('sg_show_hp');
   RegisterConsoleCommand('sg_mouse_messages');
@@ -79,6 +81,11 @@ begin
   RegisterConsoleCommand('sg_low_ammo_rg');
   RegisterConsoleCommand('sg_low_ammo_pl');
   RegisterConsoleCommand('sg_low_ammo_bfg');
+  RegisterConsoleCommand('sg_time_size');
+  RegisterConsoleCommand('sg_time_color');
+  RegisterConsoleCommand('sg_time_pos_x');
+  RegisterConsoleCommand('sg_time_pos_y');
+
 
 end;
 
@@ -108,6 +115,7 @@ begin
 
   LogoStart;
   ShowHP;
+  DrawTime;
   LowAmmoWarning;
 
   MMapShow;

@@ -22,6 +22,10 @@ implementation
     with IniFile do
     begin
       // Default configuration
+      Str := IniFile.ReadString('SGMOD','sg_draw_time','yes');
+      if (Str = 'yes') then draw_time := true else
+        if (Str = 'no') then draw_time := false;
+
       Str := IniFile.ReadString('SGMOD','sg_auto_messages','yes');
       if (Str = 'yes') then auto_messages := true else
         if (Str = 'no') then auto_messages := false;
@@ -60,6 +64,12 @@ implementation
       warning_ammo_rg := strtoint(IniFile.ReadString('AMMO_WARNING','rg','2'));
       warning_ammo_pl := strtoint(IniFile.ReadString('AMMO_WARNING','pl','15'));
       warning_ammo_bfg := strtoint(IniFile.ReadString('AMMO_WARNING','bfg','2'));
+
+      // Time
+      time_size := strtoint(IniFile.ReadString('TIME','SIZE', '3'));
+      time_color := strtoint(IniFile.ReadString('TIME','COLOR','3'));
+      time_pos_x := strtoint(IniFile.ReadString('TIME','POS_X','10'));
+      time_pos_y := strtoint(IniFile.ReadString('TIME','POS_Y','450'));
 
       // Messages:
       Str := IniFile.ReadString('MESSAGES','YA','TESTYA');
@@ -104,6 +114,9 @@ implementation
       if auto_messages then IniFile.WriteString('SGMOD','sg_auto_messages', 'yes') else
         IniFile.WriteString('SGMOD','sg_auto_messages', 'no');
 
+      if draw_time then IniFile.WriteString('SGMOD','sg_draw_time', 'yes') else
+        IniFile.WriteString('SGMOD','sg_draw_time', 'no');
+
       if low_ammo_table then IniFile.WriteString('SGMOD','sg_low_ammo_table', 'yes') else
         IniFile.WriteString('SGMOD','sg_low_ammo_table', 'no');
 
@@ -135,6 +148,12 @@ implementation
       IniFile.WriteString('AMMO_WARNING','pl', inttostr(warning_ammo_pl));
       IniFile.WriteString('AMMO_WARNING','bfg', inttostr(warning_ammo_bfg));
 
+      // Time
+      IniFile.WriteString('TIME','SIZE', inttostr(time_size));
+      IniFile.WriteString('TIME','COLOR', inttostr(time_color));
+      IniFile.WriteString('TIME','POS_X', inttostr(time_pos_x));
+      IniFile.WriteString('TIME','POS_Y', inttostr(time_pos_y));
+
       // Messages
       IniFile.WriteString('MESSAGES','YA', messages[MESSAGE_YA]);
       IniFile.WriteString('MESSAGES','RA', messages[MESSAGE_RA]);
@@ -159,6 +178,7 @@ implementation
 
     writeln(f,'[SGMOD]');
     writeln(f,'sg_auto_messages=yes');
+    writeln(f,'sg_draw_time=yes');
     writeln(f,'sg_low_ammo_table=yes');
     writeln(f,'sg_show_hp=yes');
     writeln(f,'sg_mouse_messages=yes');
@@ -174,6 +194,14 @@ implementation
     writeln(f,'vote_menu_key_down_bind=40');
     writeln(f,'vote_menu_key_up_bind=38');
     writeln(f,'mouse_choise_key=16');
+
+    // Time
+    writeln(f,'');
+    writeln(f,'[TIME]');
+    writeln(f,'SIZE=3');
+    writeln(f,'COLOR=3');
+    writeln(f,'POS_X=10');
+    writeln(f,'POS_Y=450');
 
     // Ammo warning
     writeln(f,'');

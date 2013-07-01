@@ -106,6 +106,7 @@ const
 VAR
   idx : Integer;
   gametype : String;
+  time_alarm_start : cardinal;
 
   warning_ammo_mg : byte;
   warning_ammo_sg : byte;
@@ -116,6 +117,13 @@ VAR
   warning_ammo_pl : byte;
   warning_ammo_bfg : byte;
 
+  ampl_offsety : integer;
+  ampl_offsety_vel : integer;
+  draw_time : boolean;
+  time_size : byte;
+  time_color : byte;
+  time_pos_x : integer;
+  time_pos_y : integer;
   start_logo : byte;
   logo_x : integer;
   logo_center_wait : integer;

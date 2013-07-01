@@ -56,6 +56,25 @@ implementation
       end;
     end;
 
+    if (option='sg_draw_time') then begin
+      if (value = 'yes') or (value = '1') then
+      begin
+        draw_time := true;
+        AddMessage('^1SGMOD:^7 sg_draw_time set to "yes"');
+        SaveConfiguration;
+      end else if (value = 'no') or (value = '0') then
+      begin
+        draw_time := false;
+        AddMessage('^1SGMOD:^7 sg_draw_time set to "no"');
+        SaveConfiguration;
+      end else if (value = '') then
+      begin
+        if draw_time then tmp := 'yes' else tmp := 'no';
+        AddMessage('^1SGMOD:^7 sg_draw_time is ' + tmp);
+        AddMessage('^1SGMOD:^7 ^4USAGE: ^7sg_draw_time yes|no(1|0)');
+      end;
+    end;
+
     if (option='sg_low_ammo_table') then begin
       if (value = 'yes') or (value = '1') then
       begin
@@ -201,6 +220,66 @@ implementation
         AddMessage('^1SGMOD:^7 '
             + 'sg_low_ammo_mg is '
             + inttostr(warning_ammo_mg));
+      end;
+    end;
+
+    if (option='sg_time_size') then begin
+      if value <> '' then begin
+          if strtoint(value) < 1 then value := inttostr(1);
+          if strtoint(value) > 3 then value := inttostr(3);
+          time_size := strtoint(value);
+          AddMessage('^1SGMOD:^7 '
+              + 'sg_time_size set to '
+              + inttostr(time_size));
+      end else begin
+        AddMessage('^1SGMOD:^7 '
+            + 'sg_time_size is '
+            + inttostr(time_size)
+            + '. Possible value 1-3');
+      end;
+    end;
+
+    if (option='sg_time_color') then begin
+      if value <> '' then begin
+          if strtoint(value) < 1 then value := inttostr(1);
+          if strtoint(value) > 7 then value := inttostr(7);
+          time_color := strtoint(value);
+          AddMessage('^1SGMOD:^7 '
+              + 'sg_time_color set to '
+              + inttostr(time_color));
+      end else begin
+        AddMessage('^1SGMOD:^7 '
+            + 'sg_time_color is '
+            + inttostr(time_color)
+            + '. Possible value 1-7');
+      end;
+    end;
+
+    if (option='sg_time_pos_x') then begin
+      if value <> '' then begin
+          if strtoint(value) < 1 then value := inttostr(1);
+          time_pos_x := strtoint(value);
+          AddMessage('^1SGMOD:^7 '
+              + 'sg_time_pos_x set to '
+              + inttostr(time_pos_x));
+      end else begin
+        AddMessage('^1SGMOD:^7 '
+            + 'sg_time_pos_x is '
+            + inttostr(time_pos_x));
+      end;
+    end;
+
+    if (option='sg_time_pos_y') then begin
+      if value <> '' then begin
+          if strtoint(value) < 1 then value := inttostr(1);
+          time_pos_y := strtoint(value);
+          AddMessage('^1SGMOD:^7 '
+              + 'sg_time_pos_y set to '
+              + inttostr(time_pos_y));
+      end else begin
+        AddMessage('^1SGMOD:^7 '
+            + 'sg_time_pos_y is '
+            + inttostr(time_pos_y));
       end;
     end;
 
